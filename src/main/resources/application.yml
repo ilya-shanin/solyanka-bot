@@ -1,0 +1,12 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: solyanka-bot
+
+telegram:
+  api-url: https://api.telegram.org/
+  webhook-path: null
+  bot-name: quiz_solyanka_bot
+  bot-token: "${BOT_TOKEN:}"
