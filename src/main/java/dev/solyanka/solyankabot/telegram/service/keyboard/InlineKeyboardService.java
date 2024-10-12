@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class InlineKeyboardService {
 
-    public InlineKeyboardMarkup buildInlineKeyboardOf(List<InlineKeyboardItem> items) {
+    public InlineKeyboardMarkup buildInlineKeyboardOf(List<? extends InlineKeyboardItem> items) {
         var inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         for (var item : items) {

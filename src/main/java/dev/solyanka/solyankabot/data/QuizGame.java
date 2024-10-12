@@ -20,6 +20,7 @@ public class QuizGame implements InlineKeyboardItem {
     private String datetime;
     private String cost;
     private String location;
+    private String maxPlayers;
 
     private List<QuizParticipant> participants;
 

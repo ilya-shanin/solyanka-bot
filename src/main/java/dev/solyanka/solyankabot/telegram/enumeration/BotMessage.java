@@ -16,10 +16,10 @@ public enum BotMessage {
     // Adding a new quiz
     ENTER_QUIZ_NAME("Как называется игра?"),
     ENTER_QUIZ_LOCATION("Где будет проходить квиз?"),
-    ENTER_QUIZ_DATETIME("Во сколько собираемся?"),
+    ENTER_QUIZ_DATETIME("Во сколько собираемся? Дата и время в формате dd-MM-yyyy HH:mm"),
     ENTER_QUIZ_COST("Какая информация о стоимости?"),
     ENTER_QUIZ_MAX_PLAYERS("Сколько человек максимально может быть в команде?"),
-    QUIZ_CREATION_FINISH("Игра успешно добавлена в список!"),
+    QUIZ_CREATION_FINISHED("Игра успешно добавлена в список!"),
 
     // Removing a quiz
     CHOOSE_QUIZ_TO_DELETE("Какую игру вы хотите удалить из списка?"),

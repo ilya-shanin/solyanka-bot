@@ -12,24 +12,28 @@ public enum BotState {
     MAIN_MENU("main_menu"),
 
     // viewing details
-    CHOOSING_QUIZ_FOR_DETAILS("choose_for_details"),
+    VIEW_GAMES_STEP1_REQUEST_FOR_LIST("request_for_quiz_list_to_view"),
+    VIEW_GAMES_STEP2_CHOOSE_FOR_DETAILS("choose_for_details"),
 
     // adding a new quiz
-    WAITING_FOR_A_QUIZ_NAME_TO_ADD("new_quiz_name"),
-    WAITING_FOR_A_QUIZ_LOCATION("new_quiz_location"),
-    WAITING_FOR_A_QUIZ_DATETIME("new_quiz_datetime"),
-    WAITING_FOR_A_QUIZ_COST("new_quiz_cost"),
+    ADDING_QUIZ_STEP1_REQUEST_NAME("request_new_quiz_name"),
+    ADDING_QUIZ_STEP2_NAME_INPUT("new_quiz_name"),
+    ADDING_QUIZ_STEP3_LOCATION_INPUT("new_quiz_location"),
+    ADDING_QUIZ_STEP4_DATETIME_INPUT("new_quiz_datetime"),
+    ADDING_QUIZ_STEP5_COST_INPUT("new_quiz_cost"),
+    ADDING_QUIZ_STEP6_MAX_PLAYERS_INPUT("new_quiz_max_players"),
 
     // deleting a quiz
-    CHOOSING_QUIZ_TO_DELETE("choosing_quiz_to_delete"),
+    DELETING_QUIZ_STEP1_REQUEST_SELECTION("request_selection_to_delete_quiz"),
+    DELETING_QUIZ_STEP2_CHOOSING_QUIZ("choosing_quiz_to_delete"),
 
     // adding a new participant
-    CHOOSING_QUIZ_TO_PARTICIPATE("choosing_quiz_to_participate"),
-    WAITING_FOR_THE_PARTICIPANT_NAME("new_participant_name"),
+    ADDING_PLAYER_STEP1_REQUEST_SELECTION("request_selection_to_add_player"),
+    ADDING_PLAYER_STEP2_CHOOSING_QUIZ("choosing_quiz_to_participate"),
 
     // deleting a new participant
-    CHOOSING_A_QUIZ_TO_LEAVE("choosing_quiz_to_leave"),
-    CHOOSING_A_PARTICIPANT_TO_REMOVE("choosing_participant_to_remove");
+    REMOVING_PLAYER_STEP1_REQUEST_SELECTION("request_selection_to_delete_player"),
+    REMOVING_PLAYER_STEP2_CHOOSING_QUIZ("choosing_quiz_to_leave");
 
     private final String state;
 

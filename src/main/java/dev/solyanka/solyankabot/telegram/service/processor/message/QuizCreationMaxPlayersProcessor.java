@@ -1,5 +1,6 @@
 package dev.solyanka.solyankabot.telegram.service.processor.message;
 
+import dev.solyanka.solyankabot.service.QuizService;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import dev.solyanka.solyankabot.telegram.enumeration.ContextKeys;
@@ -15,9 +16,10 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class QuizCreationDateTimeProcessor implements MessageProcessor {
+public class QuizCreationMaxPlayersProcessor implements MessageProcessor {
     private final ChatContextManager chatContextManager;
     private final BotStateManager botStateManager;
+    private final QuizService quizService;
 
     @Override
     public BotApiMethod<?> processMessage(Message message) {
@@ -25,24 +27,22 @@ public class QuizCreationDateTimeProcessor implements MessageProcessor {
         var text = message.getText();
 
         validate(text);
-        chatContextManager.addValue(chatId, ContextKeys.QUIZ_DATETIME, text);
+        chatContextManager.addValue(chatId, ContextKeys.QUIZ_MAX_PLAYERS, text);
 
-        botStateManager.updateState(chatId, BotState.ADDING_QUIZ_STEP5_COST_INPUT);
-        return new SendMessage(chatId, BotMessage.ENTER_QUIZ_COST.getMessage());
+        var created = quizService.createGame(chatContextManager.getFullContext(chatId));
+
+        botStateManager.dropState(chatId);
+        return new SendMessage(chatId, BotMessage.QUIZ_CREATION_FINISHED.getMessage());
     }
 
     @Override
     public boolean supports(BotState state) {
-        return BotState.ADDING_QUIZ_STEP4_DATETIME_INPUT.equals(state);
+        return BotState.ADDING_QUIZ_STEP6_MAX_PLAYERS_INPUT.equals(state);
     }
 
     private void validate(String text) {
         if (Objects.isNull(text) || text.isEmpty()) {
-            throw new RuntimeException("Укажите информацию о времени проведения квиза!");
-        }
-
-        if (!text.matches("\\d{2}\\.\\d{2}\\.\\d{4}\\s\\d{2}:\\d{2}")); {
-            throw new RuntimeException("Дата и время указаны в неверном формате!");
+            throw new RuntimeException("Укажите максимальное количество участников!");
         }
     }
 }

@@ -5,6 +5,7 @@ import dev.solyanka.solyankabot.telegram.service.handler.CallbackQueryHandler;
 import dev.solyanka.solyankabot.telegram.service.handler.MessageHandler;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
@@ -16,6 +17,7 @@ import java.io.IOException;
 
 @Getter
 @Setter
+@Slf4j
 public class SolyankaBot extends SpringWebhookBot {
     private String botPath;
     private String botUsername;

@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class QuizCreationDateTimeProcessor implements MessageProcessor {
+public class QuizCreationCostProcessor implements MessageProcessor {
     private final ChatContextManager chatContextManager;
     private final BotStateManager botStateManager;
 
@@ -25,24 +25,20 @@ public class QuizCreationDateTimeProcessor implements MessageProcessor {
         var text = message.getText();
 
         validate(text);
-        chatContextManager.addValue(chatId, ContextKeys.QUIZ_DATETIME, text);
+        chatContextManager.addValue(chatId, ContextKeys.QUIZ_COST, text);
 
-        botStateManager.updateState(chatId, BotState.ADDING_QUIZ_STEP5_COST_INPUT);
-        return new SendMessage(chatId, BotMessage.ENTER_QUIZ_COST.getMessage());
+        botStateManager.updateState(chatId, BotState.ADDING_QUIZ_STEP6_MAX_PLAYERS_INPUT);
+        return new SendMessage(chatId, BotMessage.ENTER_QUIZ_MAX_PLAYERS.getMessage());
     }
 
     @Override
     public boolean supports(BotState state) {
-        return BotState.ADDING_QUIZ_STEP4_DATETIME_INPUT.equals(state);
+        return BotState.ADDING_QUIZ_STEP5_COST_INPUT.equals(state);
     }
 
     private void validate(String text) {
         if (Objects.isNull(text) || text.isEmpty()) {
-            throw new RuntimeException("Укажите информацию о времени проведения квиза!");
-        }
-
-        if (!text.matches("\\d{2}\\.\\d{2}\\.\\d{4}\\s\\d{2}:\\d{2}")); {
-            throw new RuntimeException("Дата и время указаны в неверном формате!");
+            throw new RuntimeException("Укажите информацию о стоимости участия!");
         }
     }
 }

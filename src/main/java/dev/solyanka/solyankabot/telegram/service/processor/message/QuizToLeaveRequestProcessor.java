@@ -1,9 +1,10 @@
 package dev.solyanka.solyankabot.telegram.service.processor.message;
 
+import dev.solyanka.solyankabot.service.QuizService;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import dev.solyanka.solyankabot.telegram.service.context.BotStateManager;
-import dev.solyanka.solyankabot.telegram.service.keyboard.ReplyKeyboardService;
+import dev.solyanka.solyankabot.telegram.service.keyboard.InlineKeyboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -12,24 +13,25 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Service
 @RequiredArgsConstructor
-public class StartMessageProcessor implements MessageProcessor {
-
-    private final ReplyKeyboardService replyKeyboardService;
+public class QuizToLeaveRequestProcessor implements MessageProcessor {
+    private final QuizService quizService;
+    private final InlineKeyboardService inlineKeyboardService;
     private final BotStateManager botStateManager;
 
     @Override
     public BotApiMethod<?> processMessage(Message message) {
         var chatId = message.getChatId().toString();
-        botStateManager.updateState(chatId, BotState.MAIN_MENU);
+        var keyboard = inlineKeyboardService.buildInlineKeyboardOf(quizService.getActualGames());
+        var answer = new SendMessage(chatId, BotMessage.CHOOSE_QUIZ_TO_LEAVE.getMessage());
+        answer.setReplyMarkup(keyboard);
 
-        var sendMessage = new SendMessage(chatId, BotMessage.HELP.getMessage());
-        sendMessage.enableMarkdown(true);
-        sendMessage.setReplyMarkup(replyKeyboardService.getMainMenuKeyboard());
-        return sendMessage;
+        botStateManager.updateState(chatId, BotState.REMOVING_PLAYER_STEP2_CHOOSING_QUIZ);
+
+        return answer;
     }
 
     @Override
     public boolean supports(BotState state) {
-        return BotState.START.equals(state);
+        return BotState.REMOVING_PLAYER_STEP1_REQUEST_SELECTION.equals(state);
     }
 }

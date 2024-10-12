@@ -2,6 +2,7 @@ package dev.solyanka.solyankabot.telegram.service.context;
 
 import dev.solyanka.solyankabot.data.ChatContext;
 import dev.solyanka.solyankabot.data.ChatContextRepository;
+import dev.solyanka.solyankabot.telegram.enumeration.ContextKeys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class ChatContextManagerImpl implements ChatContextManager {
 
     @Override
     public ChatContext getFullContext(String chatId) {
-        return repository.findById(chatId).orElse(null);
+        return repository.findById(chatId).orElseGet(ChatContext::new);
     }
 
     @Override
@@ -28,5 +29,11 @@ public class ChatContextManagerImpl implements ChatContextManager {
     @Override
     public boolean hasContext(String chatId) {
         return repository.existsById(chatId);
+    }
+
+    @Override
+    public void addValue(String chatId, ContextKeys key, String value) {
+        var context = getFullContext(chatId);
+        context.putValue(key.name(), value);
     }
 }
