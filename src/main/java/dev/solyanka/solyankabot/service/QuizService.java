@@ -8,16 +8,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static dev.solyanka.solyankabot.telegram.enumeration.ContextKeys.*;
+import static dev.solyanka.solyankabot.telegram.enumeration.ContextKey.*;
 
 @Service
 @RequiredArgsConstructor
 public class QuizService {
 
     private final QuizGameRepository quizGameRepository;
+
+    // QUIZ MANAGEMENT
 
     public List<QuizGame> getActualGames() {
         var res = new ArrayList<QuizGame>();
@@ -39,12 +42,23 @@ public class QuizService {
         quizGameRepository.delete(quiz);
     }
 
+    // PLAYER MANAGEMENT
+
     public void addPlayer(QuizGame quiz, QuizParticipant quizParticipant) {
 
     }
 
     public void removePlayer(QuizGame quiz, QuizParticipant quizParticipant) {
 
+    }
+
+    public void removePlayer(String quizId, String playerId) {
+
+    }
+
+    public List<QuizParticipant> getPlayersByGame(QuizGame game) {
+
+        return Collections.emptyList();
     }
 
     private void fillFromContext(QuizGame quiz, ChatContext chatContext) {

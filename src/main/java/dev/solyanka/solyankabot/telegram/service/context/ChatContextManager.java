@@ -1,7 +1,7 @@
 package dev.solyanka.solyankabot.telegram.service.context;
 
 import dev.solyanka.solyankabot.data.ChatContext;
-import dev.solyanka.solyankabot.telegram.enumeration.ContextKeys;
+import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;
 
 /**
  * Сервис для управления контекстом чата, сохранения промежуточных данных
@@ -40,5 +40,6 @@ public interface ChatContextManager {
      * @param key
      * @param text
      */
-    void addValue(String chatId, ContextKeys key, String text);
+    void addValue(String chatId, ContextKey key, String text);
+
 }

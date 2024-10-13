@@ -22,17 +22,18 @@ public enum BotMessage {
     QUIZ_CREATION_FINISHED("Игра успешно добавлена в список!"),
 
     // Removing a quiz
-    CHOOSE_QUIZ_TO_DELETE("Какую игру вы хотите удалить из списка?"),
-    DELETION_FINISH("Игра удалена из списка."),
+    SELECT_QUIZ_TO_DELETE("Какую игру вы хотите удалить из списка?"),
+    DELETION_FINISHED("Игра удалена из списка."),
 
     // Participate quiz
-    CHOOSE_QUIZ_TO_PARTICIPATE("Выберите игру, в которой будете участвовать."),
+    SELECT_QUIZ_TO_PARTICIPATE("Выберите игру, в которой будете участвовать."),
     ENTER_PARTICIPANT_NAME("Ваше имя?"),
     PARTICIPATION_CONFIRMED("Участие подтверждено!"),
 
     // Leaving a quiz
-    CHOOSE_QUIZ_TO_LEAVE("Выберите игру, чтобы отменить участие."),
-    CHOOSE_PARTICIPANT_TO_EXCLUDE("Выберите участника."),
+    SELECT_QUIZ_TO_LEAVE("Выберите игру, чтобы отменить участие."),
+    SELECT_PARTICIPANT_TO_EXCLUDE("Выберите участника."),
+    LEAVING_FINISHED("Участие в игре отменено."),
 
     // Guests
     ENTER_GUESTS_COUNT("Введите количество гостей"),

@@ -9,11 +9,10 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public enum BotState {
     START("start"),
-    MAIN_MENU("main_menu"),
 
     // viewing details
     VIEW_GAMES_STEP1_REQUEST_FOR_LIST("request_for_quiz_list_to_view"),
-    VIEW_GAMES_STEP2_CHOOSE_FOR_DETAILS("choose_for_details"),
+    VIEW_GAMES_STEP2_CHOOSING_FOR_DETAILS("choosing_quiz_for_details"),
 
     // adding a new quiz
     ADDING_QUIZ_STEP1_REQUEST_NAME("request_new_quiz_name"),
@@ -31,9 +30,10 @@ public enum BotState {
     ADDING_PLAYER_STEP1_REQUEST_SELECTION("request_selection_to_add_player"),
     ADDING_PLAYER_STEP2_CHOOSING_QUIZ("choosing_quiz_to_participate"),
 
-    // deleting a new participant
+    // deleting a participant
     REMOVING_PLAYER_STEP1_REQUEST_SELECTION("request_selection_to_delete_player"),
-    REMOVING_PLAYER_STEP2_CHOOSING_QUIZ("choosing_quiz_to_leave");
+    REMOVING_PLAYER_STEP2_CHOOSING_QUIZ("choosing_quiz_to_leave"),
+    REMOVING_PLAYER_STEP3_CHOOSING_PLAYER("choosing_player_to_delete");
 
     private final String state;
 

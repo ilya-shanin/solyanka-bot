@@ -15,12 +15,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class StartMessageProcessor implements MessageProcessor {
 
     private final ReplyKeyboardService replyKeyboardService;
-    private final BotStateManager botStateManager;
 
     @Override
     public BotApiMethod<?> processMessage(Message message) {
         var chatId = message.getChatId().toString();
-        botStateManager.updateState(chatId, BotState.MAIN_MENU);
 
         var sendMessage = new SendMessage(chatId, BotMessage.HELP.getMessage());
         sendMessage.enableMarkdown(true);

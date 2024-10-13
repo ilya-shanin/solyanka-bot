@@ -2,7 +2,7 @@ package dev.solyanka.solyankabot.telegram.service.processor.message;
 
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
-import dev.solyanka.solyankabot.telegram.enumeration.ContextKeys;
+import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;
 import dev.solyanka.solyankabot.telegram.service.context.BotStateManager;
 import dev.solyanka.solyankabot.telegram.service.context.ChatContextManager;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class QuizCreationNameProcessor implements MessageProcessor {
         var text = message.getText();
 
         validate(text);
-        chatContextManager.addValue(chatId, ContextKeys.QUIZ_CREATION_NAME, text);
+        chatContextManager.addValue(chatId, ContextKey.QUIZ_CREATION_NAME, text);
 
         botStateManager.updateState(chatId, BotState.ADDING_QUIZ_STEP3_LOCATION_INPUT);
         return new SendMessage(chatId, BotMessage.ENTER_QUIZ_LOCATION.getMessage());

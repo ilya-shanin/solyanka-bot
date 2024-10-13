@@ -33,7 +33,7 @@ public class CallbackQueryHandlerImpl implements CallbackQueryHandler {
 
         try {
             var processor = resolveProcessor(currentState);
-            return processor.answerCallback(chatId, callbackId, data);
+            return processor.answerCallback(callbackQuery);
         } catch (ProcessorNotFoundException e) {
             return new SendMessage(chatId, BotMessage.COMMAND_NOT_RECOGNIZED.getMessage());
         } catch (Exception e) {

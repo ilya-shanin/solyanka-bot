@@ -3,7 +3,7 @@ package dev.solyanka.solyankabot.telegram.service.processor.message;
 import dev.solyanka.solyankabot.service.QuizService;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
-import dev.solyanka.solyankabot.telegram.enumeration.ContextKeys;
+import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;
 import dev.solyanka.solyankabot.telegram.service.context.BotStateManager;
 import dev.solyanka.solyankabot.telegram.service.context.ChatContextManager;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class QuizCreationMaxPlayersProcessor implements MessageProcessor {
         var text = message.getText();
 
         validate(text);
-        chatContextManager.addValue(chatId, ContextKeys.QUIZ_MAX_PLAYERS, text);
+        chatContextManager.addValue(chatId, ContextKey.QUIZ_MAX_PLAYERS, text);
 
         var created = quizService.createGame(chatContextManager.getFullContext(chatId));
 

@@ -22,8 +22,9 @@ public class QuizToLeaveRequestProcessor implements MessageProcessor {
     public BotApiMethod<?> processMessage(Message message) {
         var chatId = message.getChatId().toString();
         var keyboard = inlineKeyboardService.buildInlineKeyboardOf(quizService.getActualGames());
-        var answer = new SendMessage(chatId, BotMessage.CHOOSE_QUIZ_TO_LEAVE.getMessage());
+        var answer = new SendMessage(chatId, BotMessage.SELECT_QUIZ_TO_LEAVE.getMessage());
         answer.setReplyMarkup(keyboard);
+        answer.enableMarkdown(true);
 
         botStateManager.updateState(chatId, BotState.REMOVING_PLAYER_STEP2_CHOOSING_QUIZ);
 

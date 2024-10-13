@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,11 @@ public class OnSelectQuizToDeleteProcessor implements CallbackProcessor {
     private final BotStateManager botStateManager;
 
     @Override
-    public BotApiMethod<?> answerCallback(String chatId, String callbackId, String callbackData) {
+    public BotApiMethod<?> answerCallback(CallbackQuery callbackQuery) {
+        final var chatId = callbackQuery.getMessage().getChatId().toString();
+        final var callbackId = callbackQuery.getId();
+        var callbackData = callbackQuery.getData();
+
         var quiz = quizService.getQuizById(callbackData);
         var errors = quizValidationService.validateDeletion(quiz);
         if (!errors.isEmpty()) {
@@ -33,7 +38,7 @@ public class OnSelectQuizToDeleteProcessor implements CallbackProcessor {
         quizService.delete(quiz);
 
         botStateManager.dropState(chatId);
-        return new SendMessage(chatId, BotMessage.DELETION_FINISH.getMessage());
+        return new SendMessage(chatId, BotMessage.DELETION_FINISHED.getMessage());
     }
 
     @Override
