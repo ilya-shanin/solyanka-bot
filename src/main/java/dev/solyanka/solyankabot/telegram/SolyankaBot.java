@@ -1,6 +1,9 @@
 package dev.solyanka.solyankabot.telegram;
 
+import dev.solyanka.solyankabot.exceptions.IncorrectInputException;
+import dev.solyanka.solyankabot.exceptions.WorkflowInterruptedException;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
+import dev.solyanka.solyankabot.telegram.service.context.BotStateManager;
 import dev.solyanka.solyankabot.telegram.service.handler.CallbackQueryHandler;
 import dev.solyanka.solyankabot.telegram.service.handler.MessageHandler;
 import lombok.Getter;
@@ -22,13 +25,20 @@ public class SolyankaBot extends SpringWebhookBot {
     private String botPath;
     private String botUsername;
     private String botToken;
-    private MessageHandler messageHandler;
-    private CallbackQueryHandler callbackQueryHandler;
+    private final MessageHandler messageHandler;
+    private final CallbackQueryHandler callbackQueryHandler;
+    private final BotStateManager botStateManager;
 
-    public SolyankaBot(SetWebhook setWebhook, MessageHandler messageHandler, CallbackQueryHandler callbackQueryHandler) {
+    public SolyankaBot(
+            SetWebhook setWebhook,
+            MessageHandler messageHandler,
+            CallbackQueryHandler callbackQueryHandler,
+            BotStateManager botStateManager
+    ) {
         super(setWebhook);
         this.messageHandler = messageHandler;
         this.callbackQueryHandler = callbackQueryHandler;
+        this.botStateManager = botStateManager;
     }
 
     @Override
@@ -38,13 +48,21 @@ public class SolyankaBot extends SpringWebhookBot {
         } catch (IllegalArgumentException e) {
             return new SendMessage(update.getMessage().getChatId().toString(),
                     BotMessage.EXCEPTION_ILLEGAL_MESSAGE.getMessage());
-        } catch (Exception e) {
+        } catch (IncorrectInputException e) {
             return new SendMessage(update.getMessage().getChatId().toString(),
-                    BotMessage.EXCEPTION_ILLEGAL_MESSAGE.getMessage());
+                    e.getMessage());
+        } catch (WorkflowInterruptedException e) {
+            botStateManager.dropState(update.getMessage().getChatId().toString());
+            return new SendMessage(update.getMessage().getChatId().toString(),
+                    e.getMessage());
+        } catch (Exception e) {
+            botStateManager.dropState(update.getMessage().getChatId().toString());
+            return new SendMessage(update.getMessage().getChatId().toString(),
+                    BotMessage.UNEXPECTED_ERROR_MESSAGE.getMessage());
         }
     }
 
-    private BotApiMethod<?> handleUpdate(Update update) throws IOException {
+    private BotApiMethod<?> handleUpdate(Update update) {
         if (update.hasCallbackQuery()) {
             var callbackQuery = update.getCallbackQuery();
             return callbackQueryHandler.processCallbackQuery(callbackQuery);

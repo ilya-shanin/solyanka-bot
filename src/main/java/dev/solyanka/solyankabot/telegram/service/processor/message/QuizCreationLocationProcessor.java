@@ -1,5 +1,6 @@
 package dev.solyanka.solyankabot.telegram.service.processor.message;
 
+import dev.solyanka.solyankabot.exceptions.IncorrectInputException;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;
@@ -38,7 +39,7 @@ public class QuizCreationLocationProcessor implements MessageProcessor {
 
     private void validate(String text) {
         if (Objects.isNull(text) || text.isEmpty()) {
-            throw new RuntimeException("Укажите информацию о месте проведения квиза!");
+            throw new IncorrectInputException("Укажите информацию о месте проведения квиза!");
         }
     }
 }

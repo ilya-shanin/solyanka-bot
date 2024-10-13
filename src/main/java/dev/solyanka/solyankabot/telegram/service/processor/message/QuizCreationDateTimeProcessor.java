@@ -1,5 +1,6 @@
 package dev.solyanka.solyankabot.telegram.service.processor.message;
 
+import dev.solyanka.solyankabot.exceptions.IncorrectInputException;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;
@@ -38,11 +39,11 @@ public class QuizCreationDateTimeProcessor implements MessageProcessor {
 
     private void validate(String text) {
         if (Objects.isNull(text) || text.isEmpty()) {
-            throw new RuntimeException("Укажите информацию о времени проведения квиза!");
+            throw new IncorrectInputException("Укажите информацию о времени проведения квиза!");
         }
 
         if (!text.matches("\\d{2}\\.\\d{2}\\.\\d{4}\\s\\d{2}:\\d{2}")); {
-            throw new RuntimeException("Дата и время указаны в неверном формате!");
+            throw new IncorrectInputException("Дата и время указаны в неверном формате!");
         }
     }
 }

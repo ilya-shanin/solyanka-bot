@@ -4,6 +4,7 @@ import dev.solyanka.solyankabot.data.ChatContext;
 import dev.solyanka.solyankabot.data.QuizGame;
 import dev.solyanka.solyankabot.data.QuizGameRepository;
 import dev.solyanka.solyankabot.data.QuizParticipant;
+import dev.solyanka.solyankabot.exceptions.WorkflowInterruptedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class QuizService {
     }
 
     public QuizGame getQuizById(String id) {
-        return quizGameRepository.findById(id).orElseThrow(() -> new RuntimeException("Не удалось найти выбранный квиз!"));
+        return quizGameRepository.findById(id).orElseThrow(() -> new WorkflowInterruptedException("Не удалось найти выбранный квиз!"));
     }
 
     public QuizGame createGame(ChatContext chatContext) {
@@ -79,7 +80,7 @@ public class QuizService {
             }
         });
         if (!errors.isEmpty()) {
-            throw new RuntimeException("Не удалось добавить новую игру! Не хватает данных: %s.".formatted(
+            throw new WorkflowInterruptedException("Не удалось добавить новую игру! Не хватает данных: %s.".formatted(
                     String.join(", ", errors)
             ));
         }

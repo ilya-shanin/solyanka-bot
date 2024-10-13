@@ -23,9 +23,7 @@ public class CallbackQueryHandlerImpl implements CallbackQueryHandler {
 
     @Override
     public BotApiMethod<?> processCallbackQuery(CallbackQuery callbackQuery) {
-        final var chatId = callbackQuery.getMessage().getChatId().toString();
-        final var callbackId = callbackQuery.getId();
-        var data = callbackQuery.getData();
+        final var chatId = callbackQuery.getMessage().getChatId().toString();;
 
         log.info("Processing callback query for chat {}, user {}", chatId, callbackQuery.getFrom().getUserName());
 
@@ -36,8 +34,6 @@ public class CallbackQueryHandlerImpl implements CallbackQueryHandler {
             return processor.answerCallback(callbackQuery);
         } catch (ProcessorNotFoundException e) {
             return new SendMessage(chatId, BotMessage.COMMAND_NOT_RECOGNIZED.getMessage());
-        } catch (Exception e) {
-            return new SendMessage(chatId, BotMessage.UNEXPECTED_ERROR_MESSAGE.getMessage());
         }
     }
 

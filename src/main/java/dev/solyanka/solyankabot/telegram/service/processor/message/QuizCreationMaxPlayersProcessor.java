@@ -1,5 +1,6 @@
 package dev.solyanka.solyankabot.telegram.service.processor.message;
 
+import dev.solyanka.solyankabot.exceptions.IncorrectInputException;
 import dev.solyanka.solyankabot.service.QuizService;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
@@ -32,7 +33,7 @@ public class QuizCreationMaxPlayersProcessor implements MessageProcessor {
         var created = quizService.createGame(chatContextManager.getFullContext(chatId));
 
         botStateManager.dropState(chatId);
-        return new SendMessage(chatId, BotMessage.QUIZ_CREATION_FINISHED.getMessage());
+        return new SendMessage(chatId, BotMessage.QUIZ_CREATION_FINISHED.getMessage().formatted(created.getName()));
     }
 
     @Override
@@ -42,7 +43,7 @@ public class QuizCreationMaxPlayersProcessor implements MessageProcessor {
 
     private void validate(String text) {
         if (Objects.isNull(text) || text.isEmpty()) {
-            throw new RuntimeException("Укажите максимальное количество участников!");
+            throw new IncorrectInputException("Укажите максимальное количество участников!");
         }
     }
 }

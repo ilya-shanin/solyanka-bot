@@ -57,8 +57,6 @@ public class MessageHandlerImpl implements MessageHandler {
             return processor.processMessage(message);
         } catch (ProcessorNotFoundException e) {
             return new SendMessage(chatId, BotMessage.COMMAND_NOT_RECOGNIZED.getMessage());
-        } catch (Exception e) {
-            return new SendMessage(chatId, BotMessage.UNEXPECTED_ERROR_MESSAGE.getMessage());
         }
     }
 

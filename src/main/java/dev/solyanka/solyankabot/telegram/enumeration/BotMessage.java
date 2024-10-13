@@ -19,7 +19,7 @@ public enum BotMessage {
     ENTER_QUIZ_DATETIME("Во сколько собираемся? Дата и время в формате dd-MM-yyyy HH:mm"),
     ENTER_QUIZ_COST("Какая информация о стоимости?"),
     ENTER_QUIZ_MAX_PLAYERS("Сколько человек максимально может быть в команде?"),
-    QUIZ_CREATION_FINISHED("Игра успешно добавлена в список!"),
+    QUIZ_CREATION_FINISHED("Игра %s успешно добавлена в список!"),
 
     // Removing a quiz
     SELECT_QUIZ_TO_DELETE("Какую игру вы хотите удалить из списка?"),
@@ -50,7 +50,7 @@ public enum BotMessage {
     // Errors
     COMMAND_NOT_RECOGNIZED("Я не смог распознать вашу команду."),
     EXCEPTION_ILLEGAL_MESSAGE("Кажется, вы отправили сообщение в некорректном формате."),
-    UNEXPECTED_ERROR_MESSAGE("Во время выполнения произошла неизвестная ошибка.");
+    UNEXPECTED_ERROR_MESSAGE("Во время выполнения произошла неизвестная ошибка. Состояние будет сброшено.");
 
     private final String message;
 }

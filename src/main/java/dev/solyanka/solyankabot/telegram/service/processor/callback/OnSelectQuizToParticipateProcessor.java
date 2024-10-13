@@ -5,9 +5,9 @@ import dev.solyanka.solyankabot.service.QuizValidationService;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import dev.solyanka.solyankabot.telegram.service.context.BotStateManager;
+import dev.solyanka.solyankabot.telegram.service.converter.UserConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -16,29 +16,20 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 @RequiredArgsConstructor
 public class OnSelectQuizToParticipateProcessor implements CallbackProcessor {
     private final QuizService quizService;
-    private final QuizValidationService quizValidationService;
     private final BotStateManager botStateManager;
 
     @Override
     public BotApiMethod<?> answerCallback(CallbackQuery callbackQuery) {
         final var chatId = callbackQuery.getMessage().getChatId().toString();
-        final var callbackId = callbackQuery.getId();
         var callbackData = callbackQuery.getData();
+        var user = callbackQuery.getFrom();
 
         var quiz = quizService.getQuizById(callbackData);
-        var errors = quizValidationService.validateDeletion(quiz);
-        if (!errors.isEmpty()) {
-            var answer = new AnswerCallbackQuery();
-            answer.setCallbackQueryId(callbackId);
-            answer.setText(String.join(", ", errors));
-            answer.setShowAlert(true);
-            return answer;
-        }
 
-        quizService.delete(quiz);
+        quizService.addPlayer(quiz, UserConverter.fromUser(user));
 
         botStateManager.dropState(chatId);
-        return new SendMessage(chatId, BotMessage.DELETION_FINISHED.getMessage());
+        return new SendMessage(chatId, BotMessage.PARTICIPATION_CONFIRMED.getMessage());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package dev.solyanka.solyankabot.configuration;
 
+import dev.solyanka.solyankabot.telegram.service.context.BotStateManager;
 import dev.solyanka.solyankabot.telegram.service.handler.CallbackQueryHandler;
 import dev.solyanka.solyankabot.telegram.service.handler.MessageHandler;
 import dev.solyanka.solyankabot.telegram.SolyankaBot;
@@ -23,9 +24,10 @@ public class BotConfiguration {
     public SolyankaBot springWebhookBot(
             SetWebhook setWebhook,
             MessageHandler messageHandler,
-            CallbackQueryHandler callbackQueryHandler
+            CallbackQueryHandler callbackQueryHandler,
+            BotStateManager botStateManager
     ) {
-        var bot = new SolyankaBot(setWebhook, messageHandler, callbackQueryHandler);
+        var bot = new SolyankaBot(setWebhook, messageHandler, callbackQueryHandler, botStateManager);
         bot.setBotPath(telegramConfiguration.getWebhookPath());
         bot.setBotUsername(telegramConfiguration.getBotName());
         bot.setBotToken(telegramConfiguration.getBotToken());
