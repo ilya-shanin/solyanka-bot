@@ -20,7 +20,7 @@ public class BotStateManagerImpl implements BotStateManager {
 
     public BotState getChatState(String chatId) {
         return repository.findById(chatId)
-                .map(chatState -> BotState.resolve(chatState.getState()))
+                .map(ChatState::getState)
                 .orElse(BotState.START);
     }
 
@@ -28,10 +28,10 @@ public class BotStateManagerImpl implements BotStateManager {
         var chatStateOpt = repository.findById(chatId);
         if (chatStateOpt.isPresent()) {
             var chatState = chatStateOpt.get();
-            chatState.setState(botState.getState());
+            chatState.setState(botState);
             repository.save(chatState);
         } else {
-            repository.save(new ChatState(chatId, botState.getState()));
+            repository.save(new ChatState(chatId, botState));
         }
     }
 

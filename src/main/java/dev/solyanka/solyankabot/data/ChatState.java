@@ -1,5 +1,6 @@
 package dev.solyanka.solyankabot.data;
 
+import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,6 @@ public class ChatState {
 
     @Id
     private String chatId;
-    private String state;
+    private BotState state;
 
 }
