@@ -48,12 +48,12 @@ public class QuizService {
 
     }
 
-    public void removePlayer(QuizGame quiz, QuizParticipant quizParticipant) {
-
+    public void removeGuestByTelegramId(QuizGame quiz, Long id) {
+        // find first by id and isGuest = true, then delete
     }
 
-    public void removePlayer(String quizId, String playerId) {
-
+    public void removePlayerByTelegramId(QuizGame quiz, Long id) {
+        // delete by id and isGuest = false
     }
 
     public List<QuizParticipant> getPlayersByGame(QuizGame game) {

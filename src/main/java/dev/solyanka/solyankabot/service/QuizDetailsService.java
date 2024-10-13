@@ -44,7 +44,7 @@ public class QuizDetailsService {
         } else {
             int index = 1;
             for (var player : players) {
-                builder.append("%s. %s%s".formatted(index, player.getName(), System.lineSeparator()));
+                builder.append("%s. %s%s".formatted(index, player.getUsername(), System.lineSeparator()));
                 index++;
             }
         }

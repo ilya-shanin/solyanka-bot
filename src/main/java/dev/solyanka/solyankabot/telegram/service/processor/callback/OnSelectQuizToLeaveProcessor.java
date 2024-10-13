@@ -28,6 +28,7 @@ public class OnSelectQuizToLeaveProcessor implements CallbackProcessor {
         final var callbackId = callbackQuery.getId();
         var callbackData = callbackQuery.getData();
 
+        var user = callbackQuery.getFrom();
         var quiz = quizService.getQuizById(callbackData);
         var players = quizService.getPlayersByGame(quiz);
 
@@ -39,13 +40,10 @@ public class OnSelectQuizToLeaveProcessor implements CallbackProcessor {
             return answer;
         }
 
-        chatContextManager.addValue(chatId, ContextKey.QUIZ_TO_LEAVE, callbackData);
-        botStateManager.updateState(chatId, BotState.REMOVING_PLAYER_STEP3_CHOOSING_PLAYER);
+        quizService.removePlayerByTelegramId(quiz, user.getId());
+        botStateManager.dropState(chatId);
 
-        var message = new SendMessage(chatId, BotMessage.SELECT_PARTICIPANT_TO_EXCLUDE.getMessage());
-        message.setReplyMarkup(inlineKeyboardService.buildInlineKeyboardOf(players));
-        message.enableMarkdown(true);
-        return message;
+        return new SendMessage(chatId, BotMessage.LEAVING_FINISHED.getMessage());
     }
 
     @Override

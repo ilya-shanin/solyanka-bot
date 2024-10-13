@@ -13,12 +13,22 @@ public class QuizParticipant implements InlineKeyboardItem {
 
     @Id
     private String id;
+    private String username;
+    private String firstName;
+    private Boolean isGuest;
+    private Long tgId;
 
-    private String name;
+
+    public String getShortName() {
+        if (Boolean.TRUE.equals(isGuest)) {
+            return "%s (%s) +1".formatted(firstName, username);
+        }
+        return "%s (%s)".formatted(firstName, username);
+    }
 
     @Override
     public String getKeyboardText() {
-        return name;
+        return getShortName();
     }
 
     @Override
