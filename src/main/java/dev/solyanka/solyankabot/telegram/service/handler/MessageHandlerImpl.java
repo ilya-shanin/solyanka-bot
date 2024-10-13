@@ -36,8 +36,10 @@ public class MessageHandlerImpl implements MessageHandler {
             throw new IllegalArgumentException();
         }
 
-        if ("/start".equals(inputText) || "/stop".equals(inputText)) {
+        if ("/start".equals(inputText) || "/stop".equals(inputText) || "/restart".equals(inputText)) {
             botStateManager.dropState(chatId);
+        } else if ("/help".equals(inputText)) {
+            return help(chatId); // help is stateless
         } else if (ADD_GAME.getText().equals(inputText)) {
             botStateManager.updateState(chatId, BotState.ADDING_QUIZ_STEP1_REQUEST_NAME);
         } else if (VIEW_GAMES.getText().equals(inputText)) {
@@ -58,6 +60,23 @@ public class MessageHandlerImpl implements MessageHandler {
         } catch (ProcessorNotFoundException e) {
             return new SendMessage(chatId, BotMessage.COMMAND_NOT_RECOGNIZED.getMessage());
         }
+    }
+
+    private BotApiMethod<?> help(String chatId) {
+        var builder = new StringBuilder();
+        builder.append("Бот позволяет вам создать и записаться на игру.%s%s".formatted(
+                System.lineSeparator(),
+                System.lineSeparator()));
+        builder.append(
+                "Используйте команды /start и /restart чтобы перезапустить бота и сбросить его состояние.%s%s"
+                        .formatted(System.lineSeparator(), System.lineSeparator()));
+        builder.append(
+                """
+                При записи на игру используется ваше имя, идентификатор и никнейм в ТГ. Гости, которых
+                вы добавляете также будут записаны на ваше имя.
+                """
+        );
+        return new SendMessage(chatId, builder.toString());
     }
 
     private MessageProcessor resolveProcessor(BotState state) {
