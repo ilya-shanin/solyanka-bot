@@ -36,7 +36,10 @@ public enum BotMessage {
     LEAVING_FINISHED("Участие в игре отменено."),
 
     // Guests
-    ENTER_GUESTS_COUNT("Введите количество гостей"),
+    SELECT_QUIZ_TO_DELETE_GUEST("Выберите игру чтобы удалить гостя."),
+    SELECT_QUIZ_TO_ADD_GUEST("Выберите игру чтобы добавить гостя."),
+    GUEST_ADDED("Новый участник добавлен."),
+    GUEST_REMOVED("Участник удален."),
 
     // Warnings
     MAX_PLAYERS_REACHED("Достигнуто максимальное количество игроков!"),
@@ -46,7 +49,7 @@ public enum BotMessage {
 
     // Errors
     COMMAND_NOT_RECOGNIZED("Я не смог распознать вашу команду."),
-    EXCEPTION_ILLEGAL_MESSAGE("Кажется, вы отправили некорректное сообщение."),
+    EXCEPTION_ILLEGAL_MESSAGE("Кажется, вы отправили сообщение в некорректном формате."),
     UNEXPECTED_ERROR_MESSAGE("Во время выполнения произошла неизвестная ошибка.");
 
     private final String message;

@@ -14,8 +14,8 @@ public enum ButtonName {
     DELETE_GAME("Удалить игру"),
     ADD_PARTICIPANT("Участвовать"),
     DELETE_PARTICIPANT("Отменить участие"),
-    ADD_GUEST("Добавить гостя"),
-    REMOVE_GUEST("Удалить гостя");
+    ADD_GUEST("+ Гость"),
+    REMOVE_GUEST("- Гость");
 
     private final String text;
 
