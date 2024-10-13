@@ -1,4 +1,4 @@
-package dev.solyanka.solyankabot.telegram.core;
+package dev.solyanka.solyankabot.telegram.model;
 
 /**
  * Element which can be displayed on a keyboard

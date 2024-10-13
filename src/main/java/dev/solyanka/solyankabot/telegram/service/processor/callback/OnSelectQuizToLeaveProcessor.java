@@ -1,7 +1,6 @@
 package dev.solyanka.solyankabot.telegram.service.processor.callback;
 
 import dev.solyanka.solyankabot.service.QuizService;
-import dev.solyanka.solyankabot.telegram.core.InlineKeyboardItem;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;

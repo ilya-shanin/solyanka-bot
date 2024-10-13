@@ -1,6 +1,6 @@
 package dev.solyanka.solyankabot.telegram.service.keyboard;
 
-import dev.solyanka.solyankabot.telegram.core.InlineKeyboardItem;
+import dev.solyanka.solyankabot.telegram.model.InlineKeyboardItem;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;

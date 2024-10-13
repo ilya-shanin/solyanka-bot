@@ -1,6 +1,6 @@
 package dev.solyanka.solyankabot.data;
 
-import dev.solyanka.solyankabot.telegram.core.InlineKeyboardItem;
+import dev.solyanka.solyankabot.telegram.model.InlineKeyboardItem;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
