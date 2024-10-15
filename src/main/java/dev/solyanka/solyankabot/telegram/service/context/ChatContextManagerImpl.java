@@ -34,6 +34,6 @@ public class ChatContextManagerImpl implements ChatContextManager {
     @Override
     public void addValue(String chatId, ContextKey key, String value) {
         var context = getFullContext(chatId);
-        context.putValue(key.name(), value);
+//        context.putValue(key, value);
     }
 }

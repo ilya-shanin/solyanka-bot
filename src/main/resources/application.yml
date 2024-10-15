@@ -2,9 +2,15 @@ server:
   port: 5000
 
 spring:
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/}solyankabot
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:12345678}
   application:
     name: solyanka-bot
   data:
+    hibernate:
+      ddl-auto: none
     redis:
       database: ${REDIS_DB:0}
       host: ${DB_HOST:localhost}

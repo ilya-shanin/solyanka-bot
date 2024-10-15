@@ -1,3 +1,12 @@
+buildscript {
+    ext {
+        buildTag = project.hasProperty('buildTag') ? buildTag : 'latest'
+        branch = project.hasProperty('branch') ? branch : 'master'
+        buildNumber = project.hasProperty('buildNumber') ? buildNumber : 'DEV'
+        applicationVersion = "1.0.0"
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.4'
@@ -5,7 +14,7 @@ plugins {
 }
 
 group = 'dev.solyanka'
-version = '0.0.1-SNAPSHOT'
+version = "${applicationVersion}.${buildNumber}"
 
 java {
     toolchain {
@@ -25,10 +34,12 @@ repositories {
 
 dependencies {
     implementation 'com.vdurmont:emoji-java:5.1.1'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.postgresql:postgresql:42.3.1'
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.8.2'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '6.7.0'
-    implementation group: 'org.telegram', name: 'telegrambots-abilities', version: '6.7.0'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -38,4 +49,16 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.named('bootBuildImage') {
+    imageName = "solyanka-bot-${branch}:${buildTag}"
+    publish = true
+    docker {
+        publishRegistry {
+            url = dockerUrl
+            username = dockerUser
+            password = dockerPassword
+        }
+    }
 }

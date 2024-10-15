@@ -1,20 +1,25 @@
 package dev.solyanka.solyankabot.data;
 
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.data.redis.core.RedisHash;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@RedisHash("chatstate")
+@Entity
 public class ChatState {
-
     @Id
-    private String chatId;
-    private BotState state;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @NaturalId
+    @Column(nullable = false)
+    private String chatId;
+
+    @Column
+    private BotState state;
 }

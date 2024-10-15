@@ -1,8 +1,9 @@
 package dev.solyanka.solyankabot.data;
 
+import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.util.HashMap;
@@ -11,25 +12,19 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor
-@RedisHash("chatcontext")
+@Entity
 public class ChatContext {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, name = "chat_id")
     private String chatId;
 
-    private Map<String,String> values;
+    @Column(nullable = false)
+    private ContextKey key;
 
-    public void putValue(String key, String value) {
-        if (Objects.isNull(values)) {
-            values = new HashMap<>();
-        }
-        values.put(key, value);
-    }
-
-    public String getValue(String key) {
-        if (Objects.isNull(values) || !values.containsKey(key)) {
-            return null;
-        }
-        return values.get(key);
-    }
+    @Column
+    private String value;
 }

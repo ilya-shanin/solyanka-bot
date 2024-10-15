@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+  startupmeasureapp:
+    image: ${DOCKER_REPOSITORY}/solyanka-bot-${BRANCH}:latest
+    ports:
+      - ${LOCAL_HOST}:${BOT_PORT}:8099
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://db:5432/solyankabot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345678
+    env_file:
+      - ./.env
+    volumes:
+      - ./solyanka_bot:/solyanka_bot
+    depends_on:
+      - db
+    restart: unless-stopped
+  #    entrypoint: [ "java", "-Xmx712m", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=90", "-jar", "app.jar" ]
+
+  db:
+    image: ${DOCKER_REPOSITORY}/postgres:15.4
+    command: -c config_file=/etc/postgresql.conf
+    environment:
+      - POSTGRES_DB=solyankabot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345678
+    env_file:
+      - ./.env
+    ports:
+      - ${LOCAL_HOST}:${STARTUP_MEASURE_DB_PORT}:5432
+    volumes:
+      - ./solyankabot:/var/lib/postgresql/data:rw
+      - ./cfg/postgres/postgresqlCustom.conf:/etc/postgresql.conf
+    restart: unless-stopped

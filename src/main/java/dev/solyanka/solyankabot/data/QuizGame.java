@@ -1,28 +1,37 @@
 package dev.solyanka.solyankabot.data;
 
 import dev.solyanka.solyankabot.telegram.model.InlineKeyboardItem;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@RedisHash("quizgame")
+@Entity
 public class QuizGame implements InlineKeyboardItem {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
     private String name;
-    private String datetime;
-    private String cost;
-    private String location;
-    private String maxPlayers;
 
-    private List<QuizParticipant> participants;
+    @Column(nullable = false)
+    private LocalDateTime datetime;
+
+    @Column
+    private String cost;
+
+    @Column(nullable = false)
+    private String location;
+
+    @Column
+    private Long maxPlayers;
 
     @Override
     public String getKeyboardText() {
@@ -31,6 +40,6 @@ public class QuizGame implements InlineKeyboardItem {
 
     @Override
     public String getCallbackData() {
-        return id;
+        return id.toString();
     }
 }
