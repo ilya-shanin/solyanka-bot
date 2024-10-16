@@ -2,11 +2,9 @@ package dev.solyanka.solyankabot.data;
 
 import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
-import org.springframework.data.redis.core.RedisHash;
 
 @Data
 @NoArgsConstructor

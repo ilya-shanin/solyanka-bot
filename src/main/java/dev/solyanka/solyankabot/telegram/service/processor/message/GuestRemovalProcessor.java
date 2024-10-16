@@ -21,7 +21,8 @@ public class GuestRemovalProcessor implements MessageProcessor {
     @Override
     public BotApiMethod<?> processMessage(Message message) {
         final var chatId = message.getChatId().toString();
-        var keyboard = inlineKeyboardService.buildInlineKeyboardOf(quizService.getActualGames());
+        final var tgId = message.getFrom().getId();
+        var keyboard = inlineKeyboardService.buildInlineKeyboardOf(quizService.getActualGamesByPlayer(tgId, true));
         var answer = new SendMessage(chatId, BotMessage.SELECT_QUIZ_TO_DELETE_GUEST.getMessage());
         answer.setReplyMarkup(keyboard);
         answer.enableMarkdown(true);

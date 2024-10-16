@@ -4,11 +4,6 @@ import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.redis.core.RedisHash;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -21,10 +16,4 @@ public class ChatContext {
 
     @Column(nullable = false, name = "chat_id")
     private String chatId;
-
-    @Column(nullable = false)
-    private ContextKey key;
-
-    @Column
-    private String value;
 }

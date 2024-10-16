@@ -2,6 +2,7 @@ package dev.solyanka.solyankabot.telegram.service.context;
 
 import dev.solyanka.solyankabot.data.ChatContext;
 import dev.solyanka.solyankabot.telegram.enumeration.ContextKey;
+import dev.solyanka.solyankabot.telegram.model.ContextModel;
 
 /**
  * Сервис для управления контекстом чата, сохранения промежуточных данных
@@ -19,7 +20,7 @@ public interface ChatContextManager {
      * @param chatId
      * @return
      */
-    ChatContext getFullContext(String chatId);
+    ContextModel getFullContext(String chatId);
 
     /**
      * Перезаписать контекст

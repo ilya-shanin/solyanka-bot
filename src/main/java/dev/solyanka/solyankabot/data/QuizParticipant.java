@@ -4,7 +4,6 @@ import dev.solyanka.solyankabot.telegram.model.InlineKeyboardItem;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.redis.core.RedisHash;
 
 @Data
 @NoArgsConstructor
@@ -20,10 +19,10 @@ public class QuizParticipant implements InlineKeyboardItem {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(nullable = false)
-    private QuizGame quizId;
+    private QuizGame quiz;
 
     @Column(nullable = false)
-    private Boolean isGuest;
+    private boolean isGuest;
 
     @Column(nullable = false)
     private String username;

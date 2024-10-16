@@ -1,11 +1,13 @@
 package dev.solyanka.solyankabot.telegram;
 
+import dev.solyanka.solyankabot.exceptions.BusinessLogicException;
 import dev.solyanka.solyankabot.exceptions.IncorrectInputException;
 import dev.solyanka.solyankabot.exceptions.WorkflowInterruptedException;
 import dev.solyanka.solyankabot.telegram.enumeration.BotMessage;
 import dev.solyanka.solyankabot.telegram.service.context.BotStateManager;
 import dev.solyanka.solyankabot.telegram.service.handler.CallbackQueryHandler;
 import dev.solyanka.solyankabot.telegram.service.handler.MessageHandler;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +44,7 @@ public class SolyankaBot extends SpringWebhookBot {
     }
 
     @Override
+    @Transactional
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         try {
             return handleUpdate(update);
@@ -51,7 +54,7 @@ public class SolyankaBot extends SpringWebhookBot {
         } catch (IncorrectInputException e) {
             return new SendMessage(update.getMessage().getChatId().toString(),
                     e.getMessage());
-        } catch (WorkflowInterruptedException e) {
+        } catch (WorkflowInterruptedException | BusinessLogicException e) {
             botStateManager.dropState(update.getMessage().getChatId().toString());
             return new SendMessage(update.getMessage().getChatId().toString(),
                     e.getMessage());

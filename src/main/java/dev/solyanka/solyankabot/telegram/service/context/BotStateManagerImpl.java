@@ -7,6 +7,8 @@ import dev.solyanka.solyankabot.telegram.enumeration.BotState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class BotStateManagerImpl implements BotStateManager {
@@ -25,14 +27,12 @@ public class BotStateManagerImpl implements BotStateManager {
     }
 
     public void updateState(String chatId, BotState botState) {
-        var chatStateOpt = repository.findById(chatId);
-        if (chatStateOpt.isPresent()) {
-            var chatState = chatStateOpt.get();
-            chatState.setState(botState);
-            repository.save(chatState);
-        } else {
-            repository.save(new ChatState(chatId, botState));
+        var chatState = repository.findById(chatId).orElseGet(ChatState::new);
+        if (Objects.isNull(chatState.getId())) {
+            chatState.setChatId(chatId);
         }
+        chatState.setState(botState);
+        repository.save(chatState);
     }
 
 }
