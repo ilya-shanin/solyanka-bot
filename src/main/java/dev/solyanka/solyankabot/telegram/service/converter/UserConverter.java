@@ -11,7 +11,7 @@ public class UserConverter {
         participant.setTgId(user.getId());
         participant.setUsername(user.getUserName());
         participant.setFirstName(user.getFirstName());
-        participant.setIsGuest(false);
+        participant.setGuest(false);
 
         return participant;
     }
@@ -22,7 +22,7 @@ public class UserConverter {
         participant.setTgId(user.getId());
         participant.setUsername(user.getUserName());
         participant.setFirstName(user.getFirstName());
-        participant.setIsGuest(true);
+        participant.setGuest(true);
 
         return participant;
     }

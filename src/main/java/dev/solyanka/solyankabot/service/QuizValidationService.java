@@ -16,7 +16,7 @@ public class QuizValidationService {
     private final QuizService quizService;
 
     public List<String> validateDeletion(QuizGame game) {
-        var players = game.getParticipants();
+        var players = quizService.getPlayersByGame(game);
         if (Objects.nonNull(players) && !players.isEmpty()) {
             return List.of("Невозможно удалить игру, на которую уже зарегистрированые участники!");
         }
