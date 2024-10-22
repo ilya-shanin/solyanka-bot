@@ -9,6 +9,7 @@ import org.hibernate.annotations.NaturalId;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(schema = "bot", name = "chat_state")
 public class ChatState {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

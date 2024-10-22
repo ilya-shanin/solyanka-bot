@@ -40,6 +40,7 @@ dependencies {
     implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.8.2'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '6.7.0'
+    runtimeOnly group: 'org.liquibase.ext', name: 'liquibase-hibernate6', version: '4.29.2'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

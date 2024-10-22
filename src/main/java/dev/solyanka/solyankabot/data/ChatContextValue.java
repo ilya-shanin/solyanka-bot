@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Data
+@Table(schema = "bot", name = "context_value")
 public class ChatContextValue {
 
     @Id

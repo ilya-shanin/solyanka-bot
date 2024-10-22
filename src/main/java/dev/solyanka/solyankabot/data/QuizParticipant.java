@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(schema = "quiz", name = "quiz_participant")
 public class QuizParticipant implements InlineKeyboardItem {
 
     @Id

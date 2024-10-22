@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  startupmeasureapp:
+  app:
     image: ${DOCKER_REPOSITORY}/solyanka-bot-${BRANCH}:latest
     ports:
       - ${LOCAL_HOST}:${BOT_PORT}:8099

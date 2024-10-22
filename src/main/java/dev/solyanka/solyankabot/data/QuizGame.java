@@ -4,14 +4,13 @@ import dev.solyanka.solyankabot.telegram.model.InlineKeyboardItem;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.redis.core.RedisHash;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
+@Table(schema = "quiz", name = "quiz_game")
 public class QuizGame implements InlineKeyboardItem {
 
     @Id

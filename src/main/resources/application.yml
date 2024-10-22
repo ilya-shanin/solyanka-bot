@@ -11,11 +11,11 @@ spring:
   data:
     hibernate:
       ddl-auto: none
-    redis:
-      database: ${REDIS_DB:0}
-      host: ${DB_HOST:localhost}
-      port: ${DB_PORT:6379}
-      password: ${DB_PASS:12345678}
+#    redis:
+#      database: ${REDIS_DB:0}
+#      host: ${DB_HOST:localhost}
+#      port: ${DB_PORT:6379}
+#      password: ${DB_PASS:12345678}
 
 telegram:
   api-url: https://api.telegram.org/
