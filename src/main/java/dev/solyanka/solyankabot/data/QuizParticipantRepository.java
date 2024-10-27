@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface QuizParticipantRepository extends CrudRepository<QuizParticipant, String> {
     List<QuizParticipant> findAllByTgIdAndGuest(Long tgId, boolean isGuest);
     List<QuizParticipant> findAllByQuiz(QuizGame quiz);
-    Long countAllByQuiz(QuizGame quizGame);
+    Integer countAllByQuiz(QuizGame quizGame);
     Optional<QuizParticipant> findFirstByTgIdAndQuizAndGuestFalse(Long tgId, QuizGame quizGame);
     void deleteByTgIdAndQuizAndGuest(Long tgId, QuizGame quizGame, Boolean isGuest);
 

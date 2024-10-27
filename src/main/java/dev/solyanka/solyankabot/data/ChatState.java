@@ -16,7 +16,7 @@ public class ChatState {
     private Long id;
 
     @NaturalId
-    @Column(nullable = false)
+    @Column(name = "chat_id", nullable = false)
     private String chatId;
 
     @Column

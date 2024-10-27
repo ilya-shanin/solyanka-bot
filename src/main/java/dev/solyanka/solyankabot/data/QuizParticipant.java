@@ -15,20 +15,20 @@ public class QuizParticipant implements InlineKeyboardItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "tg_id")
     private Long tgId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "quiz_id")
     private QuizGame quiz;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "is_guest")
     private boolean isGuest;
 
     @Column(nullable = false)
     private String username;
 
-    @Column
+    @Column(name = "first_name")
     private String firstName;
 
     public String getShortName() {

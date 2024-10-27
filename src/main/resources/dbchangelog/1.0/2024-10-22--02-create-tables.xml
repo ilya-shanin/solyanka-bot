@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   logicalFilePath="path-independent"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2024-10-22--02-create-tables.001" author="i.shanin">
+        <createTable tableName="chat_context"
+                     schemaName="bot">
+            <column name="id"
+                    type="bigint"
+                    autoIncrement="true">
+                <constraints primaryKey="true"
+                             primaryKeyName="chat_context_pkey"/>
+            </column>
+            <column name="chat_id"
+                    type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-10-22--02-create-tables.002" author="i.shanin">
+        <createTable tableName="context_value"
+                     schemaName="bot">
+            <column name="id"
+                    type="bigint"
+                    autoIncrement="true">
+                <constraints primaryKey="true"
+                             primaryKeyName="context_value_pkey"/>
+            </column>
+            <column name="context_id"
+                    type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key"
+                    type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value"
+                    type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-10-22--02-create-tables.003" author="i.shanin">
+        <createTable tableName="chat_state"
+                     schemaName="bot">
+            <column name="id"
+                    type="bigint"
+                    autoIncrement="true">
+                <constraints primaryKey="true"
+                             primaryKeyName="chat_state_pkey"/>
+            </column>
+            <column name="chat_id"
+                    type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state"
+                    type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-10-22--02-create-tables.004" author="i.shanin">
+        <createTable tableName="quiz_game"
+                     schemaName="quiz">
+            <column name="id"
+                    type="bigint"
+                    autoIncrement="true">
+                <constraints primaryKey="true"
+                             primaryKeyName="quiz_game_pkey"/>
+            </column>
+            <column name="max_players"
+                    type="int">
+            </column>
+            <column name="datetime"
+                    type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name"
+                    type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cost"
+                    type="varchar(255)">
+            </column>
+            <column name="location"
+                    type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-10-22--02-create-tables.005" author="i.shanin">
+        <createTable tableName="quiz_participant"
+                     schemaName="quiz">
+            <column name="id"
+                    type="bigint"
+                    autoIncrement="true">
+                <constraints primaryKey="true"
+                             primaryKeyName="quiz_participant_pkey"/>
+            </column>
+            <column name="tg_id"
+                    type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quiz_id"
+                    type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_guest"
+                    type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username"
+                    type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name"
+                    type="varchar(255)">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-10-22--02-create-tables.006" author="i.shanin">
+        <addForeignKeyConstraint baseColumnNames="quiz_id"
+                                 baseTableName="quiz_participant"
+                                 baseTableSchemaName="quiz"
+                                 constraintName="fk_participant_to_quiz"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="quiz_game"
+                                 referencedTableSchemaName="quiz"/>
+    </changeSet>
+
+    <changeSet id="2024-10-22--02-create-tables.007" author="i.shanin">
+        <addForeignKeyConstraint baseColumnNames="context_id"
+                                 baseTableName="context_value"
+                                 baseTableSchemaName="bot"
+                                 constraintName="fk_context_value_to_context"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="CASCADE"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="chat_context"
+                                 referencedTableSchemaName="bot"/>
+    </changeSet>
+
+</databaseChangeLog>

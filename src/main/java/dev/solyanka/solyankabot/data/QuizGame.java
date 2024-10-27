@@ -29,8 +29,8 @@ public class QuizGame implements InlineKeyboardItem {
     @Column(nullable = false)
     private String location;
 
-    @Column
-    private Long maxPlayers;
+    @Column(name = "max_players")
+    private Integer maxPlayers;
 
     @Override
     public String getKeyboardText() {

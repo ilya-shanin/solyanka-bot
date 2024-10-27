@@ -92,7 +92,7 @@ public class QuizService {
         return playersRepository.findAllByQuiz(game);
     }
 
-    private Long getCurrentPlayersCount(QuizGame game) {
+    private Integer getCurrentPlayersCount(QuizGame game) {
         return playersRepository.countAllByQuiz(game);
     }
 
@@ -103,7 +103,7 @@ public class QuizService {
         quiz.setLocation(chatContext.getValue(QUIZ_LOCATION));
         quiz.setDatetime(DateTimeUtils.fromString(chatContext.getValue(QUIZ_DATETIME)));
         quiz.setCost(chatContext.getValue(QUIZ_COST));
-        quiz.setMaxPlayers(Long.parseLong(chatContext.getValue(QUIZ_MAX_PLAYERS)));
+        quiz.setMaxPlayers(Integer.parseInt(chatContext.getValue(QUIZ_MAX_PLAYERS)));
     }
 
     private void validateIntegrity(ContextModel chatContext) {
