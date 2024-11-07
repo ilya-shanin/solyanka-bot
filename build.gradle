@@ -53,13 +53,12 @@ tasks.named('test') {
 }
 
 tasks.named('bootBuildImage') {
-    imageName = "solyanka-bot-${branch}:${buildTag}"
+    imageName = "${dockerUrl}/solyanka-bot:${buildTag}"
     publish = true
     docker {
         publishRegistry {
-            url = dockerUrl
-            username = dockerUser
-            password = dockerPassword
+            username = project.property('dockerUser')
+            password = project.property('dockerPassword')
         }
     }
 }
