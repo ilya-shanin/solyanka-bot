@@ -6,6 +6,8 @@ spring:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/}solyankabot
     username: ${POSTGRES_USER:postgres}
     password: ${POSTGRES_PASSWORD:12345678}
+  liquibase:
+    change-log: classpath:dbchangelog/db.changelog-master.xml
   application:
     name: solyanka-bot
   data:

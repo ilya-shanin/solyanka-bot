@@ -38,7 +38,7 @@ public class QuizService {
     }
 
     public List<QuizGame> getActualGamesByPlayer(Long telegramId, boolean isGuest) {
-        var participants = playersRepository.findAllByTgIdAndGuest(telegramId, isGuest);
+        var participants = playersRepository.findAllByTgIdAndIsGuest(telegramId, isGuest);
         var currDate = LocalDate.now();
         return participants.stream()
                 .map(QuizParticipant::getQuiz)
@@ -66,7 +66,7 @@ public class QuizService {
 
     public void addPlayer(QuizGame quiz, QuizParticipant quizParticipant) {
         if (Boolean.TRUE.equals(quizParticipant.isGuest())) {
-            var player = playersRepository.findFirstByTgIdAndQuizAndGuestFalse(quizParticipant.getTgId(), quiz);
+            var player = playersRepository.findFirstByTgIdAndQuizAndIsGuestFalse(quizParticipant.getTgId(), quiz);
             if (player.isPresent()) {
                 throw new BusinessLogicException("Игрок уже участвует!");
             }

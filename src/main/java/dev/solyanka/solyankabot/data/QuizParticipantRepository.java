@@ -8,17 +8,17 @@ import java.util.Optional;
 
 @Repository
 public interface QuizParticipantRepository extends CrudRepository<QuizParticipant, String> {
-    List<QuizParticipant> findAllByTgIdAndGuest(Long tgId, boolean isGuest);
+    List<QuizParticipant> findAllByTgIdAndIsGuest(Long tgId, boolean isGuest);
     List<QuizParticipant> findAllByQuiz(QuizGame quiz);
     Integer countAllByQuiz(QuizGame quizGame);
-    Optional<QuizParticipant> findFirstByTgIdAndQuizAndGuestFalse(Long tgId, QuizGame quizGame);
-    void deleteByTgIdAndQuizAndGuest(Long tgId, QuizGame quizGame, Boolean isGuest);
+    Optional<QuizParticipant> findFirstByTgIdAndQuizAndIsGuestFalse(Long tgId, QuizGame quizGame);
+    void deleteByTgIdAndQuizAndIsGuest(Long tgId, QuizGame quizGame, Boolean isGuest);
 
     default void deletePlayer(Long tgId, QuizGame quizGame) {
-        deleteByTgIdAndQuizAndGuest(tgId, quizGame, false);
+        deleteByTgIdAndQuizAndIsGuest(tgId, quizGame, false);
     }
 
     default void deleteGuest(Long tgId, QuizGame quizGame) {
-        deleteByTgIdAndQuizAndGuest(tgId, quizGame, true);
+        deleteByTgIdAndQuizAndIsGuest(tgId, quizGame, true);
     }
 }
